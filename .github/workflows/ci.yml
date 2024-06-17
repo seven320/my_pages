@@ -35,7 +35,7 @@ jobs:
 
       - name: Add nojeklly
         run: 
-          touch docs/build/.nojekyll
+          touch docs/build/html/.nojekyll
       
       - name: Test
         run:
