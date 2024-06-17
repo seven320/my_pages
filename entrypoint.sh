@@ -43,20 +43,21 @@ else
 fi
 cd ${WORKDIR}
 
+# docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
+
 if [ "${DEPLOY_ENV}" = "prd" ];then
     echo "Deploy Prd Pages..."
-    mkdir -p pages/prd
-    rm -rf pages/prd/*
-    cp -rf ${BUILD_DIR} pages/prd/. # pages/prd/
+    rm -rf docs/pages/prd
+    cp -rf ${BUILD_DIR} docs/pages/prd/. #docs/build/prd/
 elif [ "${DEPLOY_ENV}" = "dev" ];then
     if [ "${DEPLOY_MODE}" = "create" ];then
         echo "Making Dev ${PREVIEW_DIR} preview Pages..."
-        mkdir -p pages/dev/${PREVIEW_DIR}
-        rm -rf pages/dev/${PREVIEW_DIR}/* # 
-        cp -rf ${BUILD_DIR}/* pages/dev/${PREVIEW_DIR}/ #pages/dev/<branch_name>/
+        mkdir -p docs/pages/dev/${PREVIEW_DIR}
+        rm -rf docs/pages/dev/${PREVIEW_DIR}/* # 
+        cp -rf ${BUILD_DIR}/* docs/pages/dev/${PREVIEW_DIR}/ #docs/build/dev/<branch_name>/
     elif [ "${DEPLOY_MODE}" = "delete" ];then
         echo "Deleting ${PREVIEW_DIR} preview..."
-        rm -rf pages/dev/${PREVIEW_DIR}
+        rm -rf docs/pages/dev/${PREVIEW_DIR}
     else    
         echo "Error! argument DEPLOY_MODE must be a 'create' or 'delete'"
         exit 1
