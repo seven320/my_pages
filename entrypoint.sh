@@ -42,19 +42,17 @@ else
     git checkout -b ${REMOTE_BRANCH}
 fi
 cd ${WORKDIR}
-
 # docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
-
 if [ "${DEPLOY_ENV}" = "prd" ];then
     echo "Deploy Prd Pages..."
     rm -rf docs/pages/prd
-    cp -rf ${BUILD_DIR} docs/pages/prd/. #docs/build/prd/
+    cp -rf ${BUILD_DIR}/html/* docs/pages/prd/ #docs/build/prd
 elif [ "${DEPLOY_ENV}" = "dev" ];then
     if [ "${DEPLOY_MODE}" = "create" ];then
         echo "Making Dev ${PREVIEW_DIR} preview Pages..."
         mkdir -p docs/pages/dev/${PREVIEW_DIR}
         rm -rf docs/pages/dev/${PREVIEW_DIR}/* # 
-        cp -rf ${BUILD_DIR}/* docs/pages/dev/${PREVIEW_DIR}/ #docs/build/dev/<branch_name>/
+        cp -rf ${BUILD_DIR}/html/* docs/pages/dev/${PREVIEW_DIR}/ #docs/build/dev/<branch_name>/
     elif [ "${DEPLOY_MODE}" = "delete" ];then
         echo "Deleting ${PREVIEW_DIR} preview..."
         rm -rf docs/pages/dev/${PREVIEW_DIR}

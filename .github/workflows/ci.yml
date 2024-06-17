@@ -32,6 +32,10 @@ jobs:
       - name: Build Sphinx
         run:
           make html
+
+      - name: Add nojeklly
+        run: 
+          touch docs/build/.nojekyll
       
       - name: Test
         run:
