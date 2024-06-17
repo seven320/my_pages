@@ -1,0 +1,47 @@
+name: Test pages and Deploy dev env
+run-name: ${{ github.actor}} is testing out GitHub Actions
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+      - name: Install Poetry
+        run:
+          pip install poetry
+
+      # poetryのcacheを作成
+      - name: Cache poetry Env
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.build-cache
+          key: ${{ github.ref }}-${{ github.sha }}
+          restore-keys:
+            ${{ runner.os }}-buildx-
+
+      - name: Install python Libraries
+        run:
+          poetry install
+
+
+      - name: Build Sphinx
+        run:
+          make html
+      
+      - name: Test
+        run:
+          poetry run pytest .
+
+      - name: Deploy DEV env
+        run:
+          sh entrypoint.sh
+        env:
+          BUILD_DIR: "docs/build"
+          REMOTE_REPOSITORY: "https://github.com/seven320/my_pages"
+          REMOTE_BRANCH: "preview_env"
+          DEPLOY_ENV: "dev" # [dev, prd]
+          DEPLOY_MODE: "create" #[create, delete]
