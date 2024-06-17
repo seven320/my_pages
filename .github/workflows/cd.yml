@@ -1,0 +1,43 @@
+name: Test pages and Deploy dev env
+run-name: ${{ github.actor}} is testing out GitHub Actions
+on: [merge]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Poetry
+        run:
+          pip install poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          cache: 'poetry'
+
+      - name: Install python Libraries
+        run:
+          poetry install
+
+      - name: Build Sphinx
+        run:
+          make html
+
+      - name: Add nojeklly
+        run: 
+          touch docs/.nojekyll
+      
+      - name: Test
+        run:
+          poetry run pytest .
+
+      # - name: Deploy DEV env
+      #   run: |
+      #     chmod +x entrypoint.sh
+      #     sh entrypoint.sh
+      #   env:
+      #     BUILD_DIR: "docs/build"
+      #     PREVIEW_DIR: ${{ github.ref_name }}
+      #     REMOTE_REPOSITORY: "https://github.com/seven320/my_pages.git"
+      #     REMOTE_BRANCH: "preview_env"
+      #     DEPLOY_ENV: "dev" # [dev, prd]
+      #     DEPLOY_MODE: "create" #[create, delete]
