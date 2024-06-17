@@ -14,17 +14,6 @@ jobs:
           python-version: 3.12
           cache: 'poetry'
 
-
-      # poetryのcacheを作成
-      # - name: Cache poetry Env
-      #   id: cache
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: /tmp/.build-cache
-      #     key: ${{ github.ref }}-${{ github.sha }}
-      #     restore-keys:
-      #       ${{ runner.os }}-buildx-
-
       - name: Install python Libraries
         run:
           poetry install
@@ -52,5 +41,3 @@ jobs:
           REMOTE_BRANCH: "preview_env"
           DEPLOY_ENV: "dev" # [dev, prd]
           DEPLOY_MODE: "create" #[create, delete]
-
-      
