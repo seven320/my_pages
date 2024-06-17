@@ -31,8 +31,8 @@ echo "DEPLOY_ENV is ${DEPLOY_ENV}"
 echo "DEPLOY_MODE is ${DEPLOY_MODE}" 
 echo "---------------------------"
 
-git clone ${REMOTE_REPOSITORY}
-cd ${REMOTE_REPOSITORY##*/}
+# git clone ${REMOTE_REPOSITORY}
+# cd ${REMOTE_REPOSITORY##*/}
 
 if git show-ref --verify --quiet refs/heads/${REMOTE_BRANCH}; then
     echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
