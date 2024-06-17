@@ -75,10 +75,11 @@ git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
 if [ -z "$(git status --porcelain)" ]; then
     echo "Nothing to commit" && \
     exit 0
+    
 fi && \
 git add . && \
 git commit -m 'Deploy to GitHub Pages' && \
-git push --force $REMOTE_REPOSITORY main:$REMOTE_BRANCH && \
+git push --force ${REMOTE_REPOSITORY} ${REMOTE_BRANCH}:${REMOTE_BRANCH} && \
 rm -fr .git && \
-cd $GITHUB_WORKSPACE && \
-echo "Content of $BUILD_DIR has been deployed to GitHub Pages."
+cd ${GITHUB_WORKSPACE} && \
+echo "Content of ${BUILD_DIR} has been deployed to GitHub Pages."
