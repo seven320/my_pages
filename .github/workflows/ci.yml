@@ -36,7 +36,8 @@ jobs:
           poetry run pytest .
 
       - name: Deploy DEV env
-        run:
+        run: |
+          chmod +x enctrypoint.sh
           sh entrypoint.sh
         env:
           BUILD_DIR: "docs/build"

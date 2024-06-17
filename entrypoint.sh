@@ -61,10 +61,10 @@ elif [ "${DEPLOY_ENV}" = "dev" ];then
         echo "Error! argument DEPLOY_MODE must be a 'create' or 'delete'"
         exit 1
     fi
-    echo "Making preview readme..."
-    cp -f create_preview_readme.py ${DEPLOY_REPOSITORY##*/}/.
-    cd ${DEPLOY_REPOSITORY##*/}
-    python3 create_preview_readme.py
+    # echo "Making preview readme..."
+    # cp -f create_preview_readme.py ${DEPLOY_REPOSITORY##*/}/.
+    # cd ${DEPLOY_REPOSITORY##*/}
+    # python3 create_preview_readme.py
 else
     echo "Error! argument DEPLOY_ENV must be a 'prd' or 'dev'"
     exit 1
