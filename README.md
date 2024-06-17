@@ -48,8 +48,5 @@ graph LR;
 PR作成を行うとCIが実行され、testとDev環境へのリリースが完了
 mergeするとPrd環境へのリリースが完了
 
-
-
-
-
-
+# Page設定
+github pagesにおいて、`gh-pages`ブランチの`docs/`を参照するように設定する

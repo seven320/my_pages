@@ -42,21 +42,20 @@ else
     git checkout -b ${REMOTE_BRANCH}
 fi
 cd ${WORKDIR}
-
+# docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
 if [ "${DEPLOY_ENV}" = "prd" ];then
     echo "Deploy Prd Pages..."
-    rm -rf ${DEPLOY_REPOSITORY##*/}/docs/prd/*
-    cp -rf docs/ ${DEPLOY_REPOSITORY##*/}/docs/
-    cd ${DEPLOY_REPOSITORY##*/}
+    rm -rf docs/pages/prd
+    cp -rf ${BUILD_DIR}/html/* docs/pages/prd/ #docs/build/prd
 elif [ "${DEPLOY_ENV}" = "dev" ];then
     if [ "${DEPLOY_MODE}" = "create" ];then
         echo "Making Dev ${PREVIEW_DIR} preview Pages..."
-        mkdir -p ${DEPLOY_REPOSITORY##*/}dev${PREVIEW_DIR}/docs/
-        rm -rf ${DEPLOY_REPOSITORY##*/}${PREVIEW_DIR}/docs/*
-        cp -rf docs/* ${DEPLOY_REPOSITORY##*/}dev${PREVIEW_DIR}/docs/.
+        mkdir -p docs/pages/dev/${PREVIEW_DIR}
+        rm -rf docs/pages/dev/${PREVIEW_DIR}/* # 
+        cp -rf ${BUILD_DIR}/html/* docs/pages/dev/${PREVIEW_DIR}/ #docs/build/dev/<branch_name>/
     elif [ "${DEPLOY_MODE}" = "delete" ];then
         echo "Deleting ${PREVIEW_DIR} preview..."
-        rm -rf ${DEPLOY_REPOSITORY##*/}/dev/${PREVIEW_DIR}
+        rm -rf docs/pages/dev/${PREVIEW_DIR}
     else    
         echo "Error! argument DEPLOY_MODE must be a 'create' or 'delete'"
         exit 1
@@ -75,7 +74,7 @@ git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
 if [ -z "$(git status --porcelain)" ]; then
     echo "Nothing to commit" && \
     exit 0
-    
+
 fi && \
 git add . && \
 git commit -m 'Deploy to GitHub Pages' && \

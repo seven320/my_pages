@@ -19,4 +19,5 @@ help:
 %: Makefile # html
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-
+serve:
+	poetry run sphinx-autobuild -b singlehtml docs/source docs/build
