@@ -12,6 +12,8 @@ sqlfluff = "^3.0.7"
 pytest = "^8.2.2"
 regex = "^2024.5.15"
 pandas = "^2.2.2"
+sphinx-autobuild = "^2024.4.16"
+sphinx-rtd-theme = "^2.0.0"
 
 
 [build-system]
