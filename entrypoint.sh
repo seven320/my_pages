@@ -44,16 +44,16 @@ fi
 cd ${WORKDIR}
 
 if [ "${DEPLOY_ENV}" = "prd" ];then
-    echo "Deploy Prd ENV..."
+    echo "Deploy Prd Pages..."
     rm -rf ${DEPLOY_REPOSITORY##*/}/docs/prd/*
     cp -rf docs/ ${DEPLOY_REPOSITORY##*/}/docs/
     cd ${DEPLOY_REPOSITORY##*/}
 elif [ "${DEPLOY_ENV}" = "dev" ];then
     if [ "${DEPLOY_MODE}" = "create" ];then
-        echo "Making ${PREVIEW_DIR} preview..."
-        mkdir -p ${DEPLOY_REPOSITORY##*/}/dev/${PREVIEW_DIR}/docs/
+        echo "Making Dev ${PREVIEW_DIR} preview Pages..."
+        mkdir -p ${DEPLOY_REPOSITORY##*/}dev${PREVIEW_DIR}/docs/
         rm -rf ${DEPLOY_REPOSITORY##*/}${PREVIEW_DIR}/docs/*
-        cp -rf docs/* ${DEPLOY_REPOSITORY##*/}/dev/${PREVIEW_DIR}/docs/.
+        cp -rf docs/* ${DEPLOY_REPOSITORY##*/}dev${PREVIEW_DIR}/docs/.
     elif [ "${DEPLOY_MODE}" = "delete" ];then
         echo "Deleting ${PREVIEW_DIR} preview..."
         rm -rf ${DEPLOY_REPOSITORY##*/}/dev/${PREVIEW_DIR}
@@ -69,7 +69,6 @@ else
     echo "Error! argument DEPLOY_ENV must be a 'prd' or 'dev'"
     exit 1
 fi
-
 
 git config user.name "${GITHUB_ACTOR}" && \
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \

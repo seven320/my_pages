@@ -27,7 +27,6 @@ jobs:
         run:
           poetry install
 
-
       - name: Build Sphinx
         run:
           make html
