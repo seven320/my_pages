@@ -31,8 +31,8 @@ echo "DEPLOY_ENV is ${DEPLOY_ENV}"
 echo "DEPLOY_MODE is ${DEPLOY_MODE}" 
 echo "---------------------------"
 
-git clone ${REMOTE_REPOSITORY}
-cd ${REMOTE_REPOSITORY##*/}
+# git clone ${REMOTE_REPOSITORY}
+# cd ${REMOTE_REPOSITORY##*/}
 
 if git show-ref --verify --quiet refs/heads/${REMOTE_BRANCH}; then
     echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
@@ -44,16 +44,16 @@ fi
 cd ${WORKDIR}
 
 if [ "${DEPLOY_ENV}" = "prd" ];then
-    echo "Deploy Prd ENV..."
+    echo "Deploy Prd Pages..."
     rm -rf ${DEPLOY_REPOSITORY##*/}/docs/prd/*
     cp -rf docs/ ${DEPLOY_REPOSITORY##*/}/docs/
     cd ${DEPLOY_REPOSITORY##*/}
 elif [ "${DEPLOY_ENV}" = "dev" ];then
     if [ "${DEPLOY_MODE}" = "create" ];then
-        echo "Making ${PREVIEW_DIR} preview..."
-        mkdir -p ${DEPLOY_REPOSITORY##*/}/dev/${PREVIEW_DIR}/docs/
+        echo "Making Dev ${PREVIEW_DIR} preview Pages..."
+        mkdir -p ${DEPLOY_REPOSITORY##*/}dev${PREVIEW_DIR}/docs/
         rm -rf ${DEPLOY_REPOSITORY##*/}${PREVIEW_DIR}/docs/*
-        cp -rf docs/* ${DEPLOY_REPOSITORY##*/}/dev/${PREVIEW_DIR}/docs/.
+        cp -rf docs/* ${DEPLOY_REPOSITORY##*/}dev${PREVIEW_DIR}/docs/.
     elif [ "${DEPLOY_MODE}" = "delete" ];then
         echo "Deleting ${PREVIEW_DIR} preview..."
         rm -rf ${DEPLOY_REPOSITORY##*/}/dev/${PREVIEW_DIR}
@@ -61,15 +61,14 @@ elif [ "${DEPLOY_ENV}" = "dev" ];then
         echo "Error! argument DEPLOY_MODE must be a 'create' or 'delete'"
         exit 1
     fi
-    echo "Making preview readme..."
-    cp -f create_preview_readme.py ${DEPLOY_REPOSITORY##*/}/.
-    cd ${DEPLOY_REPOSITORY##*/}
-    python3 create_preview_readme.py
+    # echo "Making preview readme..."
+    # cp -f create_preview_readme.py ${DEPLOY_REPOSITORY##*/}/.
+    # cd ${DEPLOY_REPOSITORY##*/}
+    # python3 create_preview_readme.py
 else
     echo "Error! argument DEPLOY_ENV must be a 'prd' or 'dev'"
     exit 1
 fi
-
 
 git config user.name "${GITHUB_ACTOR}" && \
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
@@ -79,7 +78,7 @@ if [ -z "$(git status --porcelain)" ]; then
 fi && \
 git add . && \
 git commit -m 'Deploy to GitHub Pages' && \
-git push --force $REMOTE_REPO master:$REMOTE_BRANCH && \
+git push --force $REMOTE_REPOSITORY main:$REMOTE_BRANCH && \
 rm -fr .git && \
 cd $GITHUB_WORKSPACE && \
 echo "Content of $BUILD_DIR has been deployed to GitHub Pages."
