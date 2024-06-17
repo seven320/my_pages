@@ -37,7 +37,7 @@ jobs:
 
       - name: Deploy DEV env
         run: |
-          chmod +x enctrypoint.sh
+          chmod +x entrypoint.sh
           sh entrypoint.sh
         env:
           BUILD_DIR: "docs/build"
