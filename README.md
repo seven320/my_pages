@@ -50,3 +50,6 @@ mergeするとPrd環境へのリリースが完了
 
 # Page設定
 github pagesにおいて、`gh-pages`ブランチの`docs/`を参照するように設定する
+
+###
+(Previewpage)[https://seven320.github.io/my_pages/pages/dev/preview_sample/index.html]
