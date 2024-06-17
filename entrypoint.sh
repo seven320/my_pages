@@ -45,14 +45,14 @@ cd ${WORKDIR}
 
 if [ "${DEPLOY_ENV}" = "prd" ];then
     echo "Deploy Prd Pages..."
-    rm -rf ${DEPLOY_REPOSITORY##*/}/docs/build/prd/
-    cp -rf docs/build/* ${DEPLOY_REPOSITORY##*/}/docs/build/prd/. #my-pages/docs/build/prd/
+    rm -rf ${DEPLOY_REPOSITORY##*/}docs/build/prd/
+    cp -rf BUILD_DIR ${DEPLOY_REPOSITORY##*/}docs/build/prd/. #my-pages/docs/build/prd/
 elif [ "${DEPLOY_ENV}" = "dev" ];then
     if [ "${DEPLOY_MODE}" = "create" ];then
         echo "Making Dev ${PREVIEW_DIR} preview Pages..."
-        mkdir -p ${DEPLOY_REPOSITORY##*/}docs/build/dev/${PREVIEW_DIR}/  
-        rm -rf ${DEPLOY_REPOSITORY##*/}docs/build/dev/${PREVIEW_DIR}* # 
-        cp -rf docs/build/* ${DEPLOY_REPOSITORY##*/}docs/build/dev/${PREVIEW_DIR}/. #my-pages/docs/build/dev/<branch_name>/
+        mkdir -p ${DEPLOY_REPOSITORY##*/}docs/build/dev${PREVIEW_DIR}
+        rm -rf ${DEPLOY_REPOSITORY##*/}docs/build/dev${PREVIEW_DIR}* # 
+        cp -rf BUILD_DIR ${DEPLOY_REPOSITORY##*/}docs/build/dev${PREVIEW_DIR}/. #my-pages/docs/build/dev/<branch_name>/
     elif [ "${DEPLOY_MODE}" = "delete" ];then
         echo "Deleting ${PREVIEW_DIR} preview..."
         rm -rf ${DEPLOY_REPOSITORY##*/}docs/build/dev/${PREVIEW_DIR}
