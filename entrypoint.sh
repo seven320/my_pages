@@ -4,9 +4,6 @@
 set -e
 WORKDIR=`pwd`
 REMOTE_BRANCH="gh-pages"
-REMOTE_REPO="https://${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git" 
-
-echo "${REMOTE_REPO}"
 
 # Function to check if a variable is set
 check_variable() {
@@ -72,17 +69,15 @@ else
     exit 1
 fi
 
-echo ${GITHUB_ACTOR}
 git config user.name "${GITHUB_ACTOR}" && \
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
 if [ -z "$(git status --porcelain)" ]; then
     echo "Nothing to commit" && \
     exit 0
 fi && \
-echo "${REMOTE_REPOSITORY}"
 git add . && \
 git commit -m 'Deploy to GitHub Pages' && \
-git push --force ${REMOTE_REPOSITORY}.git ${REMOTE_BRANCH}:${REMOTE_BRANCH} && \
+git push --force ${REMOTE_REPOSITORY} ${REMOTE_BRANCH}:${REMOTE_BRANCH} && \
 rm -fr .git && \
 cd ${GITHUB_WORKSPACE} && \
 echo "Content of ${BUILD_DIR} has been deployed to GitHub Pages."
