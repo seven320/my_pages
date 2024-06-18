@@ -78,9 +78,11 @@ if [ -z "$(git status --porcelain)" ]; then
     echo "Nothing to commit" && \
     exit 0
 fi && \
+echo "${REMOTE_REPOSITORY}"
+
 git add . && \
 git commit -m 'Deploy to GitHub Pages' && \
-git push --force ${REMOTE_REPOSITORY} ${REMOTE_BRANCH}:${REMOTE_BRANCH} && \
+git push --force ${REMOTE_REPOSITORY}.git ${REMOTE_BRANCH}:${REMOTE_BRANCH} && \
 rm -fr .git && \
 cd ${GITHUB_WORKSPACE} && \
 echo "Content of ${BUILD_DIR} has been deployed to GitHub Pages."
