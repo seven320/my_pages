@@ -72,6 +72,7 @@ else
     exit 1
 fi
 git init
+echo ${GITHUB_ACTOR}
 git config user.name "${GITHUB_ACTOR}" && \
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
 if [ -z "$(git status --porcelain)" ]; then
