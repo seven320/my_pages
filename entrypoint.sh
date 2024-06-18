@@ -71,7 +71,6 @@ else
     echo "Error! argument DEPLOY_ENV must be a 'prd' or 'dev'"
     exit 1
 fi
-git init
 echo ${GITHUB_ACTOR}
 git config user.name "${GITHUB_ACTOR}" && \
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
@@ -80,7 +79,6 @@ if [ -z "$(git status --porcelain)" ]; then
     exit 0
 fi && \
 echo "${REMOTE_REPOSITORY}"
-
 git add . && \
 git commit -m 'Deploy to GitHub Pages' && \
 git push --force ${REMOTE_REPOSITORY}.git ${REMOTE_BRANCH}:${REMOTE_BRANCH} && \
