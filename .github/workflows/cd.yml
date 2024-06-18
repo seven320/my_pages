@@ -38,6 +38,7 @@ jobs:
           chmod +x entrypoint.sh
           sh entrypoint.sh
         env:
+          GITHUB_ACTOR: $${{ github.actor }}
           BUILD_DIR: "docs/build"
           PREVIEW_DIR: ${{ github.ref_name }}
           REMOTE_REPOSITORY: "https://github.com/seven320/my_pages"
