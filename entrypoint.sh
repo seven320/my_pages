@@ -33,18 +33,16 @@ echo "---------------------------"
 
 git clone ${REMOTE_REPOSITORY}
 cd ${REMOTE_REPOSITORY##*/}
+git checkout ${REMOTE_BRANCH}
 
-git branch
-git fetch
-echo "hoge"
-git branch
-if git branch --list | grep -q ${REMOTE_BRANCH}; then
-    echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
-    git checkout ${REMOTE_BRANCH}
-else
-    echo "Branch ${REMOTE_BRANCH} does not exist. Creating a new branch..."
-    git checkout -b ${REMOTE_BRANCH}
-fi
+
+# if git branch --list | grep -q ${REMOTE_BRANCH}; then
+#     echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
+#     git checkout ${REMOTE_BRANCH}
+# else
+#     echo "Branch ${REMOTE_BRANCH} does not exist. Creating a new branch..."
+#     git checkout -b ${REMOTE_BRANCH}
+# fi
 
 cd ${WORKDIR}
 # docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
