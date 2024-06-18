@@ -39,7 +39,7 @@ jobs:
           # GH_PAT: $${{ secrets.GH_PAT }}
           BUILD_DIR: "docs/build"
           PREVIEW_DIR: ${{ github.ref_name }}
-          REMOTE_REPOSITORY: "https://github.com/seven320/my_pages.git"
+          REMOTE_REPOSITORY: "https://github.com/seven320/my_pages"
           REMOTE_BRANCH: "preview_env"
           DEPLOY_ENV: "dev" # [dev, prd]
           DEPLOY_MODE: "create" #[create, delete]
