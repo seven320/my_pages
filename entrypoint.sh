@@ -34,6 +34,7 @@ echo "---------------------------"
 # git clone ${REMOTE_REPOSITORY}
 # cd ${REMOTE_REPOSITORY##*/}
 
+git fetch
 if git show-ref --verify --quiet refs/heads/${REMOTE_BRANCH}; then
     echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
     git checkout 
@@ -41,6 +42,7 @@ else
     echo "Branch ${REMOTE_BRANCH} does not exist. Creating a new branch..."
     git checkout -b ${REMOTE_BRANCH}
 fi
+
 cd ${WORKDIR}
 # docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
 if [ "${DEPLOY_ENV}" = "prd" ];then
