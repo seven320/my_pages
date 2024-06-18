@@ -40,7 +40,7 @@ jobs:
         env:
           BUILD_DIR: "docs/build"
           PREVIEW_DIR: ${{ github.ref_name }}
-          REMOTE_REPOSITORY: "https://github.com/seven320/my_pages.git"
+          REMOTE_REPOSITORY: "https://github.com/seven320/my_pages"
           DEPLOY_ENV: "prd" # [dev, prd]
           DEPLOY_MODE: "delete" #[create, delete]
 
