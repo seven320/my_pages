@@ -45,7 +45,7 @@ echo "---------------------------"
 # docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
 
 git branch
-git checkout gh-pages
+git checkout -b gh-pages
 if [ "${DEPLOY_ENV}" = "prd" ];then
     echo "Deploy Prd Pages..."
     rm -rf docs/pages/prd
