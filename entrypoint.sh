@@ -34,7 +34,10 @@ echo "---------------------------"
 # git clone ${REMOTE_REPOSITORY}
 # cd ${REMOTE_REPOSITORY##*/}
 
+git branch
 git fetch
+echo "hoge"
+git branch
 if git branch --list | grep -q ${REMOTE_BRANCH}; then
     echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
     git checkout ${REMOTE_BRANCH}
