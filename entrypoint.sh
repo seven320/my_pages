@@ -31,9 +31,9 @@ echo "DEPLOY_ENV is ${DEPLOY_ENV}"
 echo "DEPLOY_MODE is ${DEPLOY_MODE}" 
 echo "---------------------------"
 
-git clone ${REMOTE_REPOSITORY}
-cd ${REMOTE_REPOSITORY##*/}
-git checkout ${REMOTE_BRANCH}
+# git clone ${REMOTE_REPOSITORY}
+# cd ${REMOTE_REPOSITORY##*/}
+# git checkout ${REMOTE_BRANCH}
 
 # if git branch --list | grep -q ${REMOTE_BRANCH}; then
 #     echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
@@ -43,6 +43,9 @@ git checkout ${REMOTE_BRANCH}
 #     git checkout -b ${REMOTE_BRANCH}
 # fi
 # docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
+
+git branch
+git checkout -b gh-pages
 if [ "${DEPLOY_ENV}" = "prd" ];then
     echo "Deploy Prd Pages..."
     rm -rf docs/pages/prd
