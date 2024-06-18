@@ -31,8 +31,8 @@ echo "DEPLOY_ENV is ${DEPLOY_ENV}"
 echo "DEPLOY_MODE is ${DEPLOY_MODE}" 
 echo "---------------------------"
 
-# git clone ${REMOTE_REPOSITORY}
-# cd ${REMOTE_REPOSITORY##*/}
+git clone ${REMOTE_REPOSITORY}
+cd ${REMOTE_REPOSITORY##*/}
 
 git branch
 git fetch
