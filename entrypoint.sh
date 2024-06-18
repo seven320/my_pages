@@ -4,6 +4,9 @@
 set -e
 WORKDIR=`pwd`
 REMOTE_BRANCH="gh-pages"
+REMOTE_REPO="https://${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git" 
+
+echo "${REMOTE_REPO}"
 
 # Function to check if a variable is set
 check_variable() {
@@ -68,7 +71,7 @@ else
     echo "Error! argument DEPLOY_ENV must be a 'prd' or 'dev'"
     exit 1
 fi
-
+git init
 git config user.name "${GITHUB_ACTOR}" && \
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
 if [ -z "$(git status --porcelain)" ]; then
