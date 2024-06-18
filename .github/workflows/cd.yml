@@ -1,6 +1,9 @@
 name: Test pages and Deploy dev env
 run-name: ${{ github.actor}} is testing out GitHub Actions
-on: [push]
+on: 
+  pull_request:
+    types:
+      - closed
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -30,14 +33,25 @@ jobs:
         run:
           poetry run pytest .
 
-      - name: Deploy DEV env
+      - name: Deploy PRD end
         run: |
           chmod +x entrypoint.sh
           sh entrypoint.sh
         env:
           BUILD_DIR: "docs/build"
           PREVIEW_DIR: ${{ github.ref_name }}
-          REMOTE_REPOSITORY: "https://github.com/seven320/my_pages"
-          REMOTE_BRANCH: "preview_env"
-          DEPLOY_ENV: "dev" # [dev, prd]
-          DEPLOY_MODE: "create" #[create, delete]
+          REMOTE_REPOSITORY: "https://github.com/seven320/my_pages.git"
+          DEPLOY_ENV: "prd" # [dev, prd]
+          DEPLOY_MODE: "delete" #[create, delete]
+
+      # - name: Remove DEV env
+      #   run: |
+      #     chmod +x entrypoint.sh
+      #     sh entrypoint.sh
+      #   env:
+      #     BUILD_DIR: "docs/build"
+      #     PREVIEW_DIR: ${{ github.ref_name }}
+      #     REMOTE_REPOSITORY: "https://github.com/seven320/my_pages.git"
+      #     REMOTE_BRANCH: "preview_env"
+      #     DEPLOY_ENV: "dev" # [dev, prd]
+      #     DEPLOY_MODE: "delete" #[create, delete]

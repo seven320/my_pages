@@ -31,17 +31,17 @@ echo "DEPLOY_ENV is ${DEPLOY_ENV}"
 echo "DEPLOY_MODE is ${DEPLOY_MODE}" 
 echo "---------------------------"
 
-# git clone ${REMOTE_REPOSITORY}
-# cd ${REMOTE_REPOSITORY##*/}
+git clone ${REMOTE_REPOSITORY}
+cd ${REMOTE_REPOSITORY##*/}
+git checkout ${REMOTE_BRANCH}
 
-if git show-ref --verify --quiet refs/heads/${REMOTE_BRANCH}; then
-    echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
-    git checkout 
-else
-    echo "Branch ${REMOTE_BRANCH} does not exist. Creating a new branch..."
-    git checkout -b ${REMOTE_BRANCH}
-fi
-cd ${WORKDIR}
+# if git branch --list | grep -q ${REMOTE_BRANCH}; then
+#     echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
+#     git checkout ${REMOTE_BRANCH}
+# else
+#     echo "Branch ${REMOTE_BRANCH} does not exist. Creating a new branch..."
+#     git checkout -b ${REMOTE_BRANCH}
+# fi
 # docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
 if [ "${DEPLOY_ENV}" = "prd" ];then
     echo "Deploy Prd Pages..."
@@ -74,7 +74,6 @@ git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
 if [ -z "$(git status --porcelain)" ]; then
     echo "Nothing to commit" && \
     exit 0
-
 fi && \
 git add . && \
 git commit -m 'Deploy to GitHub Pages' && \
