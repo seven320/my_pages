@@ -35,7 +35,6 @@ git clone ${REMOTE_REPOSITORY}
 cd ${REMOTE_REPOSITORY##*/}
 git checkout ${REMOTE_BRANCH}
 
-
 # if git branch --list | grep -q ${REMOTE_BRANCH}; then
 #     echo "Branch ${REMOTE_BRANCH} exists. Checking out..."
 #     git checkout ${REMOTE_BRANCH}
@@ -43,8 +42,6 @@ git checkout ${REMOTE_BRANCH}
 #     echo "Branch ${REMOTE_BRANCH} does not exist. Creating a new branch..."
 #     git checkout -b ${REMOTE_BRANCH}
 # fi
-
-cd ${WORKDIR}
 # docs(source)→docs(build)→docs(pages)(dev) or docs(pages)(prd)
 if [ "${DEPLOY_ENV}" = "prd" ];then
     echo "Deploy Prd Pages..."
